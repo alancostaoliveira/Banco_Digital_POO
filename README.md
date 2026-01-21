@@ -2,6 +2,70 @@
 
 Este é um projeto de um sistema bancário simples desenvolvido em Java, focado na aplicação dos pilares da Programação Orientada a Objetos (POO): Abstração, Encapsulamento, Herança e Polimorfismo.
 
+## Diagrama de Classes UML
+
+```mermaid
+classDiagram
+    class Banco {
+        -String nome
+        -List~Conta~ contas
+        +Banco(String nome)
+        +String getNome()
+        +List~Conta~ getContas()
+        +void cadastrarConta(Cliente cliente, int tipo)
+        +Conta buscarConta(int numero)
+    }
+
+    class Cliente {
+        -String nome
+        -String cpf
+        +Cliente(String nome, String cpf)
+        +String getNome()
+        +String getCpf()
+        +void setNome(String nome)
+        +void setCpf(String cpf)
+    }
+
+    class IConta {
+        <<interface>>
+        +boolean sacar(double valor)
+        +void depositar(double valor)
+        +void transferir(double valor, IConta contaDestino)
+        +void imprimirExtrato()
+    }
+
+    class Conta {
+        <<abstract>>
+        -static int AGENCIA_PADRAO
+        -static int SEQUENCIAL
+        #int agencia
+        #int numero
+        #double saldo
+        #Cliente cliente
+        +Conta(Cliente cliente)
+        +void sacar(double valor)
+        +void depositar(double valor)
+        +void transferir(double valor, IConta contaDestino)
+        #void imprimirInfosComuns()
+    }
+
+    class ContaCorrente {
+        +ContaCorrente(Cliente cliente)
+        +void imprimirExtrato()
+    }
+
+    class ContaPoupanca {
+        +ContaPoupanca(Cliente cliente)
+        +void imprimirExtrato()
+    }
+
+    Banco "1" *-- "*" Conta : possui
+    Conta "1" *-- "1" Cliente : pertence a
+    Conta ..|> IConta : implementa
+    ContaCorrente --|> Conta : herda
+    ContaPoupanca --|> Conta : herda
+```
+
 ## 🚀 Funcionalidades
 
 O sistema permite realizar operações bancárias via console (CLI) e persiste os dados em um arquivo de texto (`banco_dados.txt`), simulando um banco de dados real.
