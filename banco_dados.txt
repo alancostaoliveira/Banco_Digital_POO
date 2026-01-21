@@ -1,0 +1,2 @@
+CC;Alan Costa de Oliveira;12345678900;1;2000.0;1000.0
+CC;Cristiane Silva Ribeiro;01234567899;2;2500.0;1500.0
